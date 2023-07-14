@@ -35,7 +35,7 @@ const cartSlice = createSlice({
       ).toFixed(2)
 
       // Save to local storage
-      localStorage.setItem('cart, JSON.stringify(state')
+      localStorage.setItem('cart', JSON.stringify(state))
     }
   }
 })
