@@ -27,14 +27,17 @@ const CartScreen = () => {
                   <Col md={2}>
                     <Image src={item.image} alt={item.name} fluid rounded/>
                   </Col>
+
                   <Col md={3}>
                     <Link to={`/product/${item._id}`}>{item.name}</Link>
                   </Col>
+
                   <Col md={2}>
                     ${item.price}
                   </Col>
+
                   <Col md={2}>
-                  <Form.Control
+                    <Form.Control
                         as='select'
                         value={item.qty}
                         onChange={(e) => {}}
@@ -44,7 +47,13 @@ const CartScreen = () => {
                               {x + 1}
                             </option>
                           ))}
-                      </Form.Control>
+                    </Form.Control>
+                  </Col>
+                  
+                  <Col md={2}>
+                    <Button type='button' variant='light'>
+                      <FaTrash/>
+                    </Button>
                   </Col>
                 </Row>
               </ListGroup.Item>
