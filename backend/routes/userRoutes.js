@@ -8,7 +8,7 @@ import { authUser,
   getUsers,
   deleteUser,
   getUserByID,
-  updateUser } from "../controllers/userControllers.js"
+  updateUser } from "../controllers/userController.js"
 
 router.route('/').post(registerUser).get(getUsers)
 router.post('/logout', logoutUser)
