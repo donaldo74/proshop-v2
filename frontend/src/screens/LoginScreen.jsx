@@ -19,6 +19,14 @@ const LoginScreen = () => {
 
   const {userInfo} = useSelector((state) => state.auth)
 
+  const {search} = useLocation()
+  const sp = new URLSearchParams(search)
+  const redirect = sp.get('redirect') || '/'
+
+  useEffect(() => {
+
+  }, [userInfo, redirect])
+
   const submitHandler = (e) => {
     e.preventDefault()
     console.log('submit')
