@@ -29,7 +29,7 @@ const RegisterScreen = () => {
     if (userInfo) {
       navigate(redirect)
     }
-  }, [navigate, userInfo, redirect])
+  }, [userInfo, redirect, navigate])
 
   const submitHandler = async (e) => {
     e.preventDefault()
@@ -39,7 +39,7 @@ const RegisterScreen = () => {
     } else {
       try {
         const res = await register({name, email, password}).unwrap()
-        dispatch(setCredentials({...res, }))
+        dispatch(setCredentials({...res }))
         navigate(redirect)
       } catch (err) {
         toast.error(err?.data?.message || err.error)
