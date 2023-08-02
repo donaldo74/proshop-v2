@@ -53,8 +53,8 @@ const PlaceOrderScreen = () => {
               <h2>Shipping</h2>
               <p>
                 <strong>Address:</strong>
-                {cart.shippingAddress.address}, {cart.shippingAddress.city}{''}
-                {cart.shippingAddress.postalCode}, {''}
+                {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
+                {cart.shippingAddress.postalCode}, {' '}
                 {cart.shippingAddress.country}
               </p>
             </ListGroup.Item>
@@ -83,7 +83,7 @@ const PlaceOrderScreen = () => {
                         />
                       </Col>
                       <Col>
-                        <Link to={`/products/${item.product}`}>
+                        <Link to={`/product/${item.product}`}>
                           {item.name}
                         </Link>
                       </Col>
@@ -133,7 +133,7 @@ const PlaceOrderScreen = () => {
               </ListGroup.Item>
 
               <ListGroup.Item>
-                { error && <Message variant='danger'>{error}</Message>}
+                { error && <Message variant='danger'>{error.data.message}</Message>}
               </ListGroup.Item>
               
               <ListGroup.Item>
