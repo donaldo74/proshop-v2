@@ -117,7 +117,7 @@ const OrderScreen = () => {
                   </p>
                   {order.isPaid ? (
                   <Message variant='success'>
-                    Paid on {order.PaidAt}
+                    Paid on {order.paidAt}
                   </Message>
                 ) : (
                   <Message variant='danger'>Not Paid</Message>
