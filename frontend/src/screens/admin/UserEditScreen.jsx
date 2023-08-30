@@ -32,7 +32,14 @@ const UserEditScreen = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault()
-    console.log('submit')
+    try {
+      await updateUser({ userId, name, email, isAdmin })
+      toast.success('User updated successfully')
+      refetch()
+      navigate('/admin/userList')
+    } catch (err) {
+      toast.error(err?.data?.message || err.error)
+    }
   }
 
   return (
@@ -59,57 +66,20 @@ const UserEditScreen = () => {
             <Form.Group controlId='email' className='my-2'>
               <Form.Label>Email</Form.Label>
               <Form.Control
-                type='text'
+                type='email'
                 placeholder='Enter email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId='image' className='my-2'>
-              <Form.Label>Image</Form.Label>
-              <Form.Control type="text" placeholder="Enter image url" value={image} onChange={(e) => setImage}></Form.Control>
-              <Form.Control type='file' label='Choose file' onChange={uploadFileHandler}></Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId='brand' className='my-2'>
-              <Form.Label>Brand</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Enter brand'
-                value={brand}
-                onChange={(e) => setBrand(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId='countInStock' className='my-2'>
-              <Form.Label>Count In Stock</Form.Label>
-              <Form.Control
-                type='number'
-                placeholder='Enter countInStock'
-                value={countInStock}
-                onChange={(e) => setCountInStock(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId='category' className='my-2'>
-              <Form.Label>Category</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Enter category'
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-
-            <Form.Group controlId='description' className='my-2'>
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Enter description'
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              ></Form.Control>
+            <Form.Group controlId='isAdmin' className='my-2'>
+              <Form.Check
+                type='checkbox'
+                label='Is Admin'
+                checked={isAdmin}
+                onChange={(e) => setIsAdmin(e.target.checked)}
+              ></Form.Check>
             </Form.Group>
 
             <Button
