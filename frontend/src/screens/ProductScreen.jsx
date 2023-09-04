@@ -2,11 +2,12 @@ import {useState} from 'react'
 import { useParams, useNavigate } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { Form, Row, Col, Image, ListGroup, Card, Button, ListGroupItem} from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 import Rating from "../components/Rating"
 import Loader from "../components/Loader"
 import Message from "../components/Message"
-import { useGetProductDetailsQuery } from "../slices/productsApiSlice"
+import { useGetProductDetailsQuery, useCreateReviewMutation } from "../slices/productsApiSlice"
 import {addToCart} from '../slices/cartSlice'
 
 const ProductScreen = () => {
@@ -16,8 +17,14 @@ const ProductScreen = () => {
   const navigate = useNavigate()
 
   const [qty, setQty] = useState(1)
+  const [rating, setRating] = useState(0)
+  const [comment, setComment] = useState('')
 
-  const {data: product, isLoading, error, } = useGetProductDetailsQuery(productId)
+  const {data: product, isLoading, refetch, error, } = useGetProductDetailsQuery(productId)
+
+  const [createReview, {isLoading: loadingProductReview}] = useCreateReviewMutation()
+
+  const { userInfo} = useSelector((state) => state.auth)
 
   const addToCartHandler = () => {
     dispatch(addToCart({...product, qty}))
@@ -33,6 +40,7 @@ const ProductScreen = () => {
       ) : error ? (
         <Message variant='danger'>{error?.data?.message || error.error }</Message>
       ) : (
+        <>
         <Row>
         <Col md={5}>
           <Image src={product.image} alt={product.name} fluid />
@@ -103,6 +111,23 @@ const ProductScreen = () => {
           </Card>
         </Col>
       </Row>
+      <Row className='review'>
+        <Col md={6}>
+          <h2>Reviews</h2>
+          {product.reviews.length === 0 && <Message>No Reviews</Message>}
+          <ListGroup variant='flush'>
+            { product.reviews.map(review => (
+              <ListGroup.Item key={review._id}>
+                <strong>{review.name}</strong>
+                <Rating  value={review.rating} />
+                <p>{review.createdAt.substring(0, 10)}</p>
+                <p>{review.comment}</p>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </Col>
+      </Row>
+      </>
       )}
       
     </>
