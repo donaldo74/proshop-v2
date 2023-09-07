@@ -1,11 +1,11 @@
 import {useNavigate} from 'react-router-dom'
 import {Badge, Navbar, Nav, Container, NavDropdown} from 'react-bootstrap'
-import NavbarCollapse from 'react-bootstrap/esm/NavbarCollapse'
 import {FaShoppingCart, FaUser} from 'react-icons/fa'
 import {LinkContainer} from 'react-router-bootstrap'
 import {useSelector, useDispatch} from 'react-redux'
 import { useLogoutMutation } from '../slices/usersApiSlice'
 import {logout} from '../slices/authSlice'
+import SearchBox from './SearchBox'
 import logo from '../assets/logo.png'
 
 function Header() {
@@ -39,6 +39,7 @@ function Header() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
+              <SearchBox />
               <LinkContainer to='/cart'>
                 <Nav.Link>
                   <FaShoppingCart /> Cart
